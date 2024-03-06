@@ -1,0 +1,21 @@
+% to be included
+\section{Legacy of Analysis}
+
+In this section we discuss general calculus on Euclidean spaces, including parts applied in advanced analysis or geometry, and parts only applied in various \emph{nitian} exams.
+
+    A function $f:\Omega\to E$, where $E$ is a normed linear space and $\Omega$ an open subset of one, is said to be \emph{differentiable} at $x\in\Omega$, if there exists
+    \begin{itemize}
+        \item a continuous $\phi$ defined on a  neighbourhood $U$ of $0$, such that
+        $$\lim_{s\to 0}\phi(s)=0;$$
+        \item a continuous linear function $\varphi$, called the \emph{derivative} of $f$ at $x$;
+    \end{itemize}
+    satisfying
+    $$f(x+s)-f(x)=|s|\phi(s)+\varphi(s).$$
+\end{definition}
+
+Take bases $\left\langle x_i\right\rangle_{i\in I}$ and $\left\langle y_j\right\rangle_{j\in J}$ of finite dimensional normed vector spaces $E$ and $E'$.
+The derivative of a function $f:\Omega\subset E\to E'$ at $x\in E$ corresponds to the \emph{Jacobian Matrix}
+$$\nabla f=\left(\frac{\partial f_j}{\partial x_i}\right)_{I\times J}$$
+
+We will prove the inverse and implicit function theorems for $\R^n$, though they hold for general Banach spaces.
+
