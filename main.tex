@@ -7,6 +7,14 @@
 \usepackage{enumitem}
 \usepackage{lmodern, fixcmex}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={blue},
+    citecolor={blue},
+    urlcolor={blue}
+}
+
 \title{Basic Calculus}
 \author{Caelestia}
 
@@ -21,6 +29,8 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\I}{\mathrm{i}}
+\newcommand{\etale}{étale }
+\newcommand{\supp}{\operatorname{supp}}
 
 \newsavebox{\innerdiagram}
 \newsavebox{\innerdiagrama}
@@ -31,9 +41,10 @@
 
 % \tableofcontents
 
-% \include{legacy}
+\include{legacy}
 % \include{complex1}
 % \include{measure}
 \include{sheaf}
+\include{differentiation}
 
 \end{document}

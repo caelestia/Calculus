@@ -1,10 +1,8 @@
 % to be included
 \section{Sheaves}
 
-\newcommand{\etale}{étale }
-
 \begin{definition}
-Fix a topological space $(X,\mathcal{T})$ and endow the open sets in $\mathcal{T}$ with the natural partial order. A \emph{presheaf} of sets (or abelian groups, algebras, ...) on $X$ is a functor $\mathcal{F}:\mathcal{T}^\mathrm{op}\to\mathsf{Set}$ (or $\mathsf{Ab}$, $R-\mathsf{Alg}$, ... respectively). 
+Fix a topological space $(X,\mathbf{Ouv}_X)$ and endow the open sets in $\mathbf{Ouv}_X$ with the natural partial order. A \emph{presheaf} of sets (or abelian groups, algebras, ...) on $X$ is a functor $\mathcal{F}:\mathbf{Ouv}_X^\mathrm{op}\to\mathsf{Set}$ (or $\mathsf{Ab}$, $R-\mathsf{Alg}$, ... respectively). 
 The morphisms $\mathcal{F}(U\hookrightarrow V):\mathcal{F}(V)\to\mathcal{F}(U)$ are called \emph{restriction maps}, denoted by $\mathrm{res}_{VU}$. 
 \end{definition}
 
@@ -18,14 +16,12 @@ A presheaf $\mathcal{F}$ on $X$ is called a \emph{sheaf}, if, for every open cov
 \end{enumerate}
 \end{definition}
 
-When difference (and products indeed) are available in the category where our presheaf $\mathcal{F}$ takes value, e.g. $\mathsf{Ab}$, we can rewrite \ref{def.sheaf.1} and \ref{def.sheaf.2} as an exact sequence:
-
-\begin{tikzcd}[row sep=tiny]
-    0 \arrow{r} & \mathcal{F}(U) \arrow{r} & \displaystyle\prod_{i\in I}\mathcal{F}(U_i) \arrow{r} & \displaystyle\prod_{i,j\in I}\mathcal{F}(U_i\cap U_j), \\
+When possible, e.g. in $\mathsf{Ab}$, we can rewrite \ref{def.sheaf.1} and \ref{def.sheaf.2} as an exact sequence:
+\[\begin{tikzcd}[row sep=tiny, column sep=scriptsize]
+    0 \arrow{r} & \mathcal{F}(U) \arrow{r} & \displaystyle\prod_{i\in I}\mathcal{F}(U_i) \arrow{r} & \displaystyle\prod_{i,j\in I}\mathcal{F}(U_i\cap U_j) \\
     & s \arrow[mapsto]{r} & \left(s_i:=\mathrm{res}_{UU_i}s\right)_i \arrow[r, mapsto] & \left(s_i-s_j\right)_{i,j} 
-\end{tikzcd}
-
-\noindent where $\{U_i\subset U\}_{i\in I}$ is any open cover of $U$. 
+\end{tikzcd}\]
+where $\{U_i\subset U\}_{i\in I}$ is any open cover of $U$. 
 
 \begin{example}
     By associating to every open set $U$ the same set $A$ and taking $\operatorname{id}_A$ as the restriction map, we obtain the \emph{constant presheaf} $\mathcal{A}$ on $X$ (associated to $A$).
@@ -40,13 +36,13 @@ When difference (and products indeed) are available in the category where our pr
 \begin{remark}
     Notice that this logic applies to any sheaf $\mathcal{F}$ satisfying \ref{def.sheaf.1} and \ref{def.sheaf.2}, hence the property
     \begin{enumerate}[resume*=sheaf]
-        \item\label{def.sheaf.3} $|\mathcal{F}(\varnothing)|=1$.
+        \item\label{def.sheaf.3} $\mathcal{F}(\varnothing)$ is the terminal object.
     \end{enumerate}
-    holds for any sheaf.
+    holds for any sheaf. Often, it means $|\mathcal{F}(\varnothing)|=1$.
 \end{remark}
 
 
-If we adjust the constant presheaf with \ref{def.sheaf.3}, we'll find that: 
+If we try to adjust the constant presheaf with \ref{def.sheaf.3}, we'll find that: 
 \begin{itemize}
     \item \ref{def.sheaf.1} holds.
     \item It is clear that if $X$ is disconnected then \ref{def.sheaf.2} fails.
@@ -66,8 +62,8 @@ If we adjust the constant presheaf with \ref{def.sheaf.3}, we'll find that:
 \end{definition}
 
 \begin{definition}
-    Denote the open neighbourhoods of a point $x\in X$ as $\mathcal{N}_x\subset\mathcal{T}^\mathrm{op}$.
-    The \emph{stalk} $\mathcal{F}_x$ of a presheaf $\mathcal{F}$ at the point $x$ is an inductive limit
+    Denote the open neighborhoods of a point $x\in X$ as $\mathcal{N}_x\subset\mathbf{Ouv}_X^\mathrm{op}$.
+    The \emph{stalk} $\mathcal{F}_x$ of a presheaf $\mathcal{F}$ at the point $x$ is a filtered inductive limit
     $$\mathcal{F}_x=\varinjlim_{U\in\mathcal{N}_x}\mathcal{F}(U).$$
 
     An element $s_x$ of $\mathcal{F}_x$ is called a \emph{germ}, where $s\in\mathcal{F}(U)$ for some $U\in\mathcal{N}_x$.
@@ -83,7 +79,7 @@ A morphism of presheaves $\mathcal{F}\to\mathcal{G}$ induces the local map $\mat
     It remains to prove the continuity of these maps. 
     \begin{itemize}
         \item For the projection, this means showing $\bigsqcup_{x\in U}\mathcal{F}_x$ is open for open $U$, which follows from the definition of the stalk and the topology on the \etale space.
-        \item For the sections, we need to show that $\tilde s^{-1}\tilde t(U)$ is open in $X$, where $s,t\in\mathcal{F}(U)$. This is just the set $\{x\in U:s_x=t_x\}$, which is obviously open, for $s_x=t_x$ is equivalent to $s=t$ at some neighbourhood of $x$. 
+        \item For the sections, we need to show that $\tilde s^{-1}\tilde t(U)$ is open in $X$, where $s,t\in\mathcal{F}(U)$. This is just the set $\{x\in U:s_x=t_x\}$, which is obviously open, for $s_x=t_x$ is equivalent to $s=t$ in some neighborhood of $x$. 
     \end{itemize}
 \end{definition}
 
@@ -92,7 +88,7 @@ A morphism of presheaves $\mathcal{F}\to\mathcal{G}$ induces the local map $\mat
     \[ \begin{tikzcd}[column sep=large]
         \mathsf{PreSh}(X) \arrow[r, bend left, "\text{sheafification}"{name=U}] & \mathsf{Sh}(X) \arrow[l, bend left, "\text{forgetful}"{name=D}] \arrow[phantom, from=U, to=D, sloped, "\dashv"]
     \end{tikzcd} \]
-    We will verify this, after some preparation:
+    We will verify this after some preparation.
 \end{theorem}
 
 We've already seen the natural morphism from $\mathcal{F}$ to $\tilde{\mathcal{F}}$, given by $s\mapsto\tilde{s}$, which is the unit of the adjunction. 
@@ -116,7 +112,7 @@ We've already seen the natural morphism from $\mathcal{F}$ to $\tilde{\mathcal{F
 \begin{theorem}\label{thm.shff.iso}
     A presheaf $\mathcal{F}$ is a sheaf if and only if $\mathcal{F}(U)\xrightarrow{\sim}\tilde{\mathcal{F}}(U)$ for every open set $U$.
 
-    In other words, we can equate a sheaf with the continuous sections of its \etale space.
+    In other words, we can identify a sheaf with the continuous sections of its \etale space.
 \end{theorem}
 
 \begin{proof}
@@ -125,7 +121,7 @@ We've already seen the natural morphism from $\mathcal{F}$ to $\tilde{\mathcal{F
     That is to glue the local information in any continuous section $\sigma:U\to\bigsqcup_{x\in U}\mathcal{F}_x$ into an element of $\mathcal{F}(U)$. For every $x\in U$ we have $\sigma(x)=s_x$ for some $s\in\mathcal{F}(U_x)$ and $U_x\in\mathcal{N}_x$. Continuity of the section $\sigma$ implies that $\{y\in U_x:\sigma(y)=s_y\}$ is open and contains $x$. These sets form an open cover of $U$ and satisfies the conditions of \ref{def.sheaf.2}.
 \end{proof}
 
-Above shows that everything about a sheaf can be determined locally. It should not be surprising to have the following result:
+Thus everything about a sheaf can be determined locally. It should not be surprising to have the following result:
 
 \begin{corollary}
     Let $\mathcal{F},\mathcal{G}\in\mathsf{Sh}(X)$. 
@@ -139,7 +135,7 @@ Above shows that everything about a sheaf can be determined locally. It should n
         \begin{tikzcd}[row sep=tiny, column sep=tiny, baseline=-2ex]
             E(\mathcal{F}) \arrow[rr, "\psi"] \arrow[rd] & & E(\mathcal{G}) \arrow[ld] \\
             & X &
-            \arrow[from=1-1, to=1-3, phantom, "\small\text{(commutative in }\small\mathsf{Top})", yshift=-7ex]
+            \arrow[from=1-1, to=1-3, phantom, "\text{(commutative in }\mathsf{Top})", yshift=-7ex]
         \end{tikzcd}
     \end{lrbox}
     \[ \begin{tikzcd}
@@ -152,7 +148,7 @@ Above shows that everything about a sheaf can be determined locally. It should n
     We have explained $\varphi\mapsto\psi$ above. The continuity of $\psi$ can be simply checked: for every open set $U$ and $s\in\mathcal{G}(U)$,
     $$\psi^{-1}(\tilde{s}(U))=\bigcup_{\substack{V\subset U,\\t\in\mathcal{F}(V),\\ \varphi t=s}}\tilde{t}(V).$$
 
-    By Theorem \ref{thm.shff.iso}, sheaves can be equated with sheaves of sections of the \etale space. This gives $\psi\mapsto\varphi=\psi_*$. It is effortless to check that these maps are inverses.
+    By Theorem \ref{thm.shff.iso}, sheaves can be identified with sheaves of sections of the \etale space. This gives $\psi\mapsto\varphi=\psi_*$. We can easily check that these maps are inverses.
 \end{proof}
 
 Now the universal property---the adjuction in Theorem \ref{sheafification}---which defines the sheafification, is easy to verify:
@@ -180,7 +176,9 @@ Now the universal property---the adjuction in Theorem \ref{sheafification}---whi
         E(\mathcal{F}) \arrow[rr, "\text{sheafification of }\mathcal{F}"] \arrow[rd] & & E(\tilde{\mathcal{F}}) \arrow[ld] \\
         & X \arrow[ul, bend left=35, "\sigma"]
     \end{tikzcd} \]
-    The diagram is self-explanatory and proves the claim; from which it is a simple check that $\{\varphi\}\stackrel{1:1}{\longleftrightarrow}\{\psi\}$.
+    This diagram is self-explanatory and proves the claim. 
+
+    What we have proven is in fact one of the two triangle identities of the desired adjunction. By Theorem \ref{thm.shff.iso}, both the unit and the counit are just $\operatorname{id}$ on $\mathsf{Sh}(X)$, so the other triangle identity is trivially true. Hence $\{\varphi\}\stackrel{1:1}{\longleftrightarrow}\{\psi\}$.    
 \end{proof}
 
 % TODO constant sheaves
@@ -194,14 +192,14 @@ Now the universal property---the adjuction in Theorem \ref{sheafification}---whi
         \item The \emph{inverse image} $f^{-1}:\mathsf{Sh}(Y)\to\mathsf{Sh}(X)$ is the pullback
         \[ \begin{tikzcd}[column sep=small]
             E(f^{-1}\mathcal{G}) \arrow[r] \arrow[d] \arrow[rd, "\Box" description, phantom, pos=0.4] & E(\mathcal{G}) \arrow[d] \\
-            X \arrow[r, "f"] & Y 
+            X \arrow[r, "f"'] & Y 
         \end{tikzcd} \]
 
         \item When $f:X\hookrightarrow Y$, the pullback is called the \emph{restriction} to $X$, denoted $\mathcal{G}|X$.
     \end{itemize}
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm.shf.pulbck}
     If $f:X\to Y$ is a continuous map, then
     \[ \begin{tikzcd}[column sep=large]
         \mathsf{Sh}(Y) \arrow[r, bend left, "f^{-1}"{name=U}] & \mathsf{Sh}(X) \arrow[l, bend left, "f_*"{name=D}] \arrow[phantom, from=U, to=D, sloped, "\dashv"]
@@ -217,10 +215,134 @@ Now the universal property---the adjuction in Theorem \ref{sheafification}---whi
     induces
     $$\mathcal{G}_{f(x)}\xrightarrow{\varinjlim\varphi}\mathcal{F}_x,$$
     evidently giving rise to
-    $$E(f^{-1}\mathcal{G})=X\underset{Y}{\times}E(\mathcal{G})\longrightarrow E(\mathcal{F}).$$
-    Reversing this process gives the converse.    
+    $$E(f^{-1}\mathcal{G})=X\underset{Y}{\times}E(\mathcal{G})\longrightarrow E(\mathcal{F})$$
+    as desired. Every step in this process can be reversed.
 \end{proof}
 
+\begin{example}
+    Every element $x\in X$ specifies a map $f_x:\mathrm{pt}\to X$. $f_x^{-1}=(-)_x:\mathsf{Sh}(X)\to\mathsf{Sh}(\mathrm{pt})=\mathsf{Set}$ gives the stalk at $x$.
+\end{example}
+
+As a left adjoint, $(-)_x$ preserves colimits. But, being a filtered colimit itself, it also preserves finite limits. One application of this is the following definition.
+
 \begin{proposition}
-    
+    A map of two sheaves $\mathcal{F}\to\mathcal{G}$ in $\mathsf{Sh}(X)$ is said to define a \emph{subsheaf}, if any of these equivalent conditions holds:
+    \begin{enumerate}
+        \item $\forall x\in X$, $\mathcal{F}_x\hookrightarrow\mathcal{G}_x$.
+        \item $\forall$ open $U$, $\mathcal{F}(U)\hookrightarrow\mathcal{G}(U)$.
+    \end{enumerate}
 \end{proposition}
+
+\begin{proof}
+    Recall that, in any category, a morphism $f:A\to B$ is a monomorphism iff the following diagram is a pullback
+    \[ \begin{tikzcd}
+            A \arrow[r, "\text{id}"] \arrow[d, "\text{id}"'] \arrow[rd, "\Box" description, phantom, pos=0.5] & A \arrow[d, "f"] \\
+            A \arrow[r, "f"'] & B 
+        \end{tikzcd} \]
+
+    Condition 2. makes $\mathcal{F}\to\mathcal{G}$ a monomorphism in $\mathsf{Sh}(X)$ because natural transformations are pointwise. $(-)_x$ preserves finite limits, hence monomorphisms. And so does the forgetful functor from the category of some common algebraic structures (e.g. $\mathsf{Ab}$) to $\mathsf{Set}$, due to the existence of left adjoints (free objects). Monomorphisms in $\mathsf{Set}$ are just injective maps. These facts together yields 1.
+
+    Condition 1. implies $E(\mathcal{F})\hookrightarrow E(\mathcal{G})$, so we get $\mathcal{F}(U)\hookrightarrow\mathcal{G}(U)$ immediately.
+\end{proof}
+
+Suppose we have an open cover $\{U_i\}$ of some space $X$, and a sheaf $\mathcal{F}_i$ on each $U_i$. We wish to glue them together into a sheaf on $X$. Of course, this is equivalent to defining a sheaf $\mathcal{F}$ which satisfies the pullback
+\[ \begin{tikzcd}
+    \coprod E(\mathcal{F}_i) \arrow[r] \arrow[d] \arrow[rd, "\Box" description, phantom, pos=0.4] & E(\mathcal{F}) \arrow[d] \\
+    \coprod U_i \arrow[r] & X
+\end{tikzcd} \]
+
+The specific data needed is the following.
+
+\begin{proposition}\label{prop.sheafglue}
+    Under the above assumption, if moreover we have isomorphisms $c_{ij}:\mathcal{F}_i|_{U_i\cap U_j}\xrightarrow{\sim}\mathcal{F}_j|_{U_i\cap U_j}$, satisfying the \emph{cocycle condition}
+    $$c_{ij}c_{jk}=c_{ik}$$
+    for all $i,j,k$, then such $\mathcal{F}$ exists.
+\end{proposition}
+
+\begin{proof}
+    Observe that 
+    $$\mathcal{F}(U):=\{(x_i)\in\prod\mathcal{F}_i(U\cap U_i):c_{ij}(x_i)=c_{ji}(x_j),\forall(i,j)\}$$
+    is always a subsheaf of $\prod\iota_*\mathcal{F}_i$. (This does not involve the cocycle condition.)
+
+    Apply the cocycle condition and we see that indeed $\mathcal{F}|U_i=\mathcal{F}_i$.
+\end{proof}
+
+This proof inspire us to further discuss the limits of sheaves. Indeed, the forgetful functor $\mathsf{Sh}(X)\to\mathsf{PreSh}(X)$ preserves limits. It is full and faithful, hence reflects limits as well. Moreover, the limits in $\mathsf{PreSh}(X)$ are fairly simple:
+
+\begin{lemma}\label{lemma.functorlim}
+    Let $I,C$ be small categories.
+    If the functor $\alpha:I^{\operatorname{op}}\to\operatorname{Fct}(\mathsf{C},\mathsf{D})$ has object-wise limits, i.e. $\varprojlim\alpha_i(c)$ exists for all $c\in\mathsf{C}$, then $\varprojlim\alpha$ exists and is defined object-wise.
+
+    The same holds if we consider $\varinjlim$ instead.
+\end{lemma}
+
+\begin{proof}
+    If we forget the morphisms in $\mathsf{C}$, we get 
+    $$\alpha':I^{\operatorname{op}}\to\operatorname{Fct}(\operatorname{Ob}(\mathsf{C}),\mathsf{D})=\prod_{\operatorname{Ob}(\mathsf{C})}D$$
+    into the product category, where the limits are just point-wise and assembled by the $\varprojlim\alpha_i(c)$.
+
+    Now suppose $L\in\operatorname{Fct}(\mathsf{C},\mathsf{D})$ and consider the cone $\Delta(L)\to\alpha$. By forgetting the morphisms there is the limit
+    $$\left(L(c)\xrightarrow{\varphi(c)}\varprojlim\alpha_i(c)\right)_{c\in \mathsf{C}}.$$
+
+    We know that given $[c\xrightarrow{f}d]\in\operatorname{Mor}(\mathsf{C})$, $\alpha(f)$ is a natural transformation $\alpha(c)\to\alpha(d)$, thus there is a unique $\varprojlim\alpha(f):\varprojlim\alpha(c)\to\varprojlim\alpha(d)$ such that $\Delta(\varprojlim\alpha)\to\alpha$ is natural. It is easy to see that with these maps $\varprojlim\alpha$ is indeed the limit in $\operatorname{Fct}(\mathsf{C},\mathsf{D})$.
+\end{proof}
+
+\begin{proposition}\label{prop.sheaflim}
+    Suppose that $\mathcal{F}_k$ are sheaves. If $\varprojlim\mathcal{F}_k$ exists as a limit of presheaves, then it is also the limit as sheaves.
+\end{proposition}
+
+\begin{proof}
+    A presheaf $\mathcal{F}$ is a sheaf if and only if
+    \[\begin{tikzcd}
+        \mathcal{F}(U) \arrow[r, hook] & \displaystyle\prod_{i\in I}\mathcal{F}(U_i) \arrow[r, shift left=1] \arrow[r, shift right=1] & \displaystyle\prod_{i,j\in I}\mathcal{F}(U_i\cap U_j)
+    \end{tikzcd}\]
+    is the equalizer whenever $\bigcup U_i=U$. By Lemma \ref{lemma.functorlim},
+    \begin{align*}
+        & \operatorname{eq}\left(\prod_{i\in I}(\varprojlim_k\mathcal{F}_k)(U_i)\rightrightarrows\prod_{i,j\in I}(\varprojlim_k\mathcal{F}_k)(U_i\cap U_j)\right) \\
+        = & \varprojlim_k \operatorname{eq}\left(\prod_{i\in I}\mathcal{F}_k(U_i)\rightrightarrows\prod_{i,j\in I}\mathcal{F}_k(U_i\cap U_j)\right) \\
+        = & \varprojlim_k\mathcal{F}_k(U) \\
+        = & (\varprojlim_k\mathcal{F}_k)(U).
+    \end{align*}
+    This shows that $\varprojlim\mathcal{F}_k$ is a sheaf as desired.
+\end{proof}
+
+Usually, the category in which our sheaves and presheaves takes value is complete. Hence:
+
+\begin{corollary}
+    In this case, $\mathsf{PreSh}(X)$ and $\mathsf{Sh}(X)$ are also complete. All these limits are object-wise.
+\end{corollary}
+
+Often, we want to consider the sections of a sheaf $\mathcal{F}\in\mathsf{Sh}(X)$ over a closed subset $K$. These are precisely the global sections of $\mathcal{F}|K$. 
+
+Under a topological constraint, any such section can be extended to a larger open set. The following lemma is useful.
+
+\begin{lemma}\label{lemma.shrknhood}
+    If $\{U_i\}_{i\in I}$ is a locally finite open cover of $X$ and $\{V_i\}_{i\in I}$ is a shrinking, then $\forall x\in X$, there is an open neighborhood $M$ of $x$, such that
+    \begin{itemize}
+        \item $I_x:=\{i\in I:M\cap V_i\neq\varnothing\}$ is finite,
+        \item $i\in I_x$ if and only if $x\in\overline{V_i}$, and
+        \item if $i\in I_x$ then $M\subset U_i$.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    As $\{V_i\}_i$ is locally finite there is some $M$ satisfying the first property. Now we can take
+    $$M'=M\cap\bigcap_{i\in I_x:x\notin\overline{V_i}}(U_i\setminus\overline{V_i})\cap\bigcap_{i\in I_x}U_i.$$
+    We see that $I_x'\subset I_x$ and that $M'$ is indeed small enough.
+\end{proof}
+
+\begin{theorem}\label{thm.closedsect}
+    If $X$ is paracompact and Hausdorff, then every such section is a restriction of a section over some open neighborhood of $K$. In other words, if $K$ is a closed subset of $X$, then
+    $$(\mathcal{F}|K)(K)=\varinjlim_{U\supset K}\mathcal{F}(U).$$
+\end{theorem}
+
+\begin{proof}
+    Around every $x\in K$, there is an open neighborhood $U_x$ and a section $s_x\in\mathcal{F}(U_x)$ which coincides with the given section on $K$.
+
+    Now $K$ is paracompact, so to glue these together we can take a locally finite refinement $\{U_i\}_i$ and a shrinking $\{V_i\subset U_i\}_i$. For every $x\in\bigcup_iU_i$, define $M_x$ and $I_x$ as in Lemma \ref{lemma.shrknhood}.
+
+    Notice that if $y\in M_x$, then $I_y\subset I_x$. Therefore, if $x\in K$, then
+    $$\left\{y\in M_x:(s_i)_y=(s_j)_y\quad\forall i,j\in I_x\right\}$$
+    is always an open neighborhood of $x$, on which the $s_i\in\mathcal{F}(V_i)$'s can be glued together. The union of these sets over $x\in K$ is clearly an open subset of $\{x:(s_i)_x=(s_j)_x\ \forall i,j\in I_x\}$. It is the desired open neighborhood of $K$.
+\end{proof}
+

@@ -1,0 +1,196 @@
+% to be included
+\section{Differentiation}
+
+Here we will study differentiation on smooth manifolds. The smooth structure locally comes from the sheaf of smooth functions on $\R^n$, which we denote by $C^\infty(\R^n)$.
+
+\begin{definition}
+    A \emph{differential manifold $M$ of dimension $n$} is a Hausdorff and second-countable topological space, together with a $\R$-algebra subsheaf of the sheaf of continuous functions, called the \emph{structure sheaf} $\mathcal{A}^M$ of $M$, such that $\forall x\in M$ there exists an open neighborhood $U$ of $x$ with a homeomorphism $\varphi$ into an open subset of $\R^n$, satisfying $\mathcal{A}^M|U=\varphi^{-1}C^\infty(\R^n)$. Such $(U,\varphi)$ is called a \emph{coordinate chart}.
+\end{definition}
+
+\begin{proposition}\label{prop.maniparacompact}
+    Any manifold $M$ is paracompact and normal.
+\end{proposition}
+
+\begin{proof}[Proof(sketch)]
+    A manifold is locally compact and Hausdorff, hence regular. The Urysohn metrization theorem states that every second-countable regular Hausdorff space is metrizable. It is clear that metric spaces are normal. Furthermore, they are paracompact; see \href{https://www.ams.org/journals/proc/1969-020-02/S0002-9939-1969-0236876-3/S0002-9939-1969-0236876-3.pdf}{here} for a neat proof by Rudin which provides a refinement of a well-ordered cover.
+\end{proof}
+
+\begin{definition}
+    By definition, any open subset of $\R^n$ is a differentiable manifold of dimension $n$. Slightly more generally, any open subset of a differentiable manifold $(M,\mathcal{A})$ is again a differentiable manifold of the same dimension, and is called an \emph{open submanifold} of $M$.
+\end{definition}
+
+Suppose $X$ is a Hausdorff second-countable space and $\{U_i\}$ is an open cover. By Proposition \ref{prop.sheafglue}, a given collection of differentiable structures $(U_i,\mathcal{A}_i)$ can be glued together if $\mathcal{A}_i|U_i\cap U_j=\mathcal{A}_j|U_i\cap U_j$ as a subsheaf of the sheaf of continuous functions on $U_i\cap U_j$. In other words, $U_i\cap U_j$ is the same manifold as open submanifold of $U_i$ or $U_j$.
+
+Indeed $\mathcal{A}_i$ can be given by a homeomorphism $\varphi_i$ from $U_i$ to an open subset of $\R^n$. The condition becomes checking that  $\varphi_i\circ\varphi_j^{-1}$ are all diffeomorphisms. Then ($U_i$,$\varphi_i$) become the coodinate charts. This is of course the alternate definition of differential manifolds.
+
+\begin{example}\label{eg.projspace}
+    Let $F=\R$ or $\C$, and $V$ be a $F$-vector space with $n=\dim_FV$. We endow the projective space $P(V):=(V\setminus\{0\})/F^\times$ with a differentiable structure, induced by
+    \begin{align*}
+        \{V:x_i\neq0\} & \longrightarrow F^{n-1} \\
+        (x_1,\cdots,x_i,\cdots) & \mapsto \left(\frac{x_j}{x_i}\right)_{j\neq i}
+    \end{align*}
+
+    The compatibility condition is just the differentiability of 
+    $$(y_j)\mapsto\left(\frac{y_1}{y_i},\cdots,\frac{y_{i-1}}{y_i},\frac{1}{y_i},\frac{y_{i+1}}{y_i},\cdots\right),$$
+    which is obvious. This provides differentiable structures for
+    $$\mathbb{RP}^n:=P(\R^{n+1}),\text{ and }\mathbb{CP}^n:=P(\C^{n+1}).$$
+\end{example}
+
+Submanifolds need not be open. For example, $S^n\subset\R^{n+1}$ is closed. More generally, we have
+
+\begin{definition}
+    A subset $N$ of a differential manifold $M$ is called a \emph{closed submanifold}, if
+    \begin{itemize}
+        \item $N$ is closed, and
+        \item $\forall x\in N$, there is a coordinate chart $(U,\varphi)$ around $x$ such that $U\cap N$ is the common zero of some (constant number of) coordinate functions in $\varphi$.
+    \end{itemize}
+
+    In other words, a closed submanifold is locally the inverse image of some linear subspace of $\R^n$. Apparently these charts are mutually compatible, so $N$ gets a differentiable structure from $M$.
+\end{definition}
+
+\begin{example}
+    Sections of the sheaf $\mathcal{A}$ are called \emph{differentiable functions}. Let $f$ be a differentiable function on $M$. 
+    
+    If at every point, at least one of the partial derivatives (with respect to any coordinate chart) does not vanish, then the \emph{zero locus} $f^{-1}(0)$ has a differentiable structure as a closed submanifold, for the inverse function theorem \ref{thm.invfunc} makes $f$ a coordinate function. To be specific, if $\dfrac{\partial f}{\partial x_1}\neq 0$, then $(U,\varphi=(f,x_2,\cdots,x_n))$ is a coordinate chart for some $U$.
+
+    If $f=(f_1,f_2,\cdots,f_r)$, which can be seen as a differentiable function into $\R^r$ (the general definition will be stated later), then again we have the analogous condition
+    $$\operatorname{rank}(\nabla f)=r$$
+    for $f^{-1}(0)$ to be a closed submanifold. We also see that 
+    $$\dim f^{-1}(0)=\dim M-r,$$
+    by the definition of closed submanifolds.
+\end{example}
+
+Take $M=\R^{n+1}$ and $f(x)=|x|^2-1$, and we are back at the example $S^n$.
+
+If the function has critical points, the zero locus may not have a manifold structure. Consider $f:\R^2\to\R$ given by $(x,y)\mapsto xy$. Its zero locus is the union of $x,y$-axes which is not locally Euclidean.
+
+\begin{example}
+    Clearly, $\operatorname{GL}(n,\R)\subset M_n(\R)\simeq\R^{n^2}$ given by $\det\neq 0$ is an open submanifold, which has $\operatorname{SL}(n,\R)$ given by $\det=1$ as a closed submanifold of $M_n(\R)$. Here
+    $$\dim\operatorname{GL}(n,\R)=n^2,\quad\dim\operatorname{SL}(n,\R)=n^2-1.$$
+    The condition can be checked directly.
+\end{example}
+
+There is an interesting generalization of the projective space $P(V)$ which also has a geometric structure, called the \emph{Grassmannian}. Following the notation of Example \ref{eg.projspace}, the Grassmannian $\mathbf{G}(k,V)$, $0\leq k\leq n$, is the set of $k$-dimensional linear subspaces of $V$.
+
+\begin{proposition}
+    There is a differentiable structure on $\mathbf{G}(k,V)$, and $\dim\mathbf{G}(k,V)=k(n-k)$.
+\end{proposition}
+
+\begin{proof}
+    Let $U\in\mathbf{G}(k,V)$ and $W$ be such that $V=U\oplus W$. Consider the subset $\{U':V=U'\oplus W\}$. There is the bijection
+    \[\begin{tikzcd}[row sep=tiny]
+        \{U':V=U'\oplus W\} \arrow[r, leftrightarrow, "1:1"] & \operatorname{Hom}(U,W) \\
+        U' \arrow[r, mapsto] & \left [U\hookrightarrow V\xrightarrow{\pi}W\right ] \\
+        \operatorname{im}(\iota-\varphi) \arrow[r, mapsfrom] & \varphi
+    \end{tikzcd}\]
+    and of course $\operatorname{Hom}(U,W)\simeq\R^{k(n-k)}$. Here $\pi$ denotes the projection with respect to $U'\oplus W$.
+
+    Now we need to check three things: that this topology on $\mathbf{G}(k,V)$ is Hausdorff and second-countable, and that the transition maps are differentiable.
+
+    %TODO
+\end{proof}
+
+\begin{theorem}[Plücker embedding]
+    The following map is injective and called the \emph{Plücker embedding}:
+    \begin{align*}
+        \psi:\mathbf{G}(k,V) &\longrightarrow P(\bigwedge^kV) \\
+        W &\longmapsto F^\times w_1\wedge\cdots\wedge w_k=(\bigwedge^kW)\setminus\{0\}
+    \end{align*}
+    where $w_1,w_2,\cdots,w_k$ is any basis of $W$.
+\end{theorem}
+
+\begin{proof}
+    $w_1\wedge\cdots\wedge w_k$ is nonzero and generates $\bigwedge^kW$, so $\psi(W)\in P(\bigwedge^kV)$. To prove injectivity of $\psi$, notice that if $\psi(W)=F^\times\alpha$, then
+    $$W=\{v\in V:v\wedge\alpha=0\},$$
+    which is a simple consequence of the explicit basis of $\bigwedge V$ (indexed by the multi-indices $\lambda=(1\leq\lambda_1<\cdots<\lambda_k\leq n)$).
+\end{proof}
+
+It can be shown that under this map, $\mathbf{G}(k,V)$ is a closed submanifold of $P(\bigwedge^kV)$. However we leave the proof of this for later at the appropriate juncture.
+
+We have a few more remarks on the algebra regarding the Grassmannian before we move on. %TODO contraction, duality, prepare for compute of differential forms
+
+Closed submanifolds are the nicest 
+
+We now shift our focus to basic properties of the differentiable functions. By the locality of sections, the following is obvious.
+
+\begin{proposition}
+    If $f\in\mathcal{A}(M)$ is nowhere vanishing, then $1/f$ is differentiable and also nowhere vanishing.
+
+    If $\{U_i\}_i$ is a locally finite open cover of $M$, if $\supp f_i\in U_i$ for all $i$, then $\sum f_i\in\mathcal{A}(M)$.
+\end{proposition}
+
+\begin{proof}
+    Trivial.
+\end{proof}
+
+\begin{definition}
+    A map $\varphi:M\to N$ between differentiable manifolds is called \emph{differentiable}, if it is continuous, and if for open set $U$ in $N$ and any function $f\in\mathcal{A}_N(U)$, $f\circ\varphi\in\mathcal{A}_M(\varphi^{-1}(U))$.
+
+    The key feature of this definition is it induces a \emph{structure homomorphism} of sheaves $\mathcal{A}_N\to \varphi_*\mathcal{A}_M$, or equivalently (Theorem \ref{thm.shf.pulbck}), a homomorphism $\varphi^{-1}\mathcal{A}_N\to\mathcal{A}_M$.
+
+    Denote the category of differential manifolds and differentiable maps $\mathsf{Man}$. This is valid since a composition of differentiable maps is obviously differentiable. 
+\end{definition}
+
+\begin{theorem}
+    $\mathsf{Man}$ possesses finite products.
+\end{theorem}
+
+\begin{proof}
+    If $M$ (and $N$) are manifolds covered by coordinate charts $\{U_i\}$ (and $\{V_j\}$), the space $M\times N$ can be covered by $\{U_i\times V_j\}$. These subsets are identified with open subsets of $\R^{m+n}=\R^m\times\R^n$, and the compatibility follows from that of $\{U\}$ and $\{V\}$.
+
+    If $A\to M$ and $A\to N$ are differentiable maps, the differentiability of the induced continuous map $A\to M\times N$ is a direct consequence of the locality of this property, namely, that it need only be checked in an open neighborhood around each point.
+\end{proof}
+
+\begin{example}
+    Isomorphisms of $\mathsf{Man}$ are called \emph{diffeomorphisms}. A differentiable homeomorphism need not be a diffeomorphism: For example, $x\mapsto x^3$ is a homeomorphism $\R\to\R$ whose inverse is not differentiable at $0$.
+    % Man!
+\end{example}
+
+\begin{theorem}[Differentiable partition of unity]
+    If open sets $U,V$ in a manifold $M$ satisfy $\overline{V}\subset U$, then there exists a nonnegative differentiable function $f$ with support in $U$ which does not vanish anywhere in $V$.
+\end{theorem}
+
+\begin{proof}
+    We can add local functions up to achieve this goal. So we take a locally finite cover of $M$ by coordinate charts $\{W_i\}$, and for each open set in $\R^n$ associated to $W_i\cap V$ take a locally finite cover by open balls. But in the ball $B:=B(a,r)\subset\R^n$, the function
+    $$f(x)=\begin{cases}
+        \exp\left(\frac{1}{\|x-a\|^2-r^2}\right), & x\in B \\
+        0, &\text{otherwise}
+    \end{cases}$$
+    is non-vanishing in $B$ and $0$ everywhere else, and $\supp f\subset\overline{V}\subset U$. This completes the argument.
+\end{proof}
+
+\begin{corollary}
+    Given a locally finite open cover $\{U_i\}$ of $M$, there exists functions $\{\varphi_i\}$ with values in $[0,1]$ such that $\supp\varphi_i\subset U_i$ for all $i$ and $\sum\varphi_i=1$.
+
+    The family of functions $\{\varphi_i\}$ is called the \emph{partition of unity} subordinate to the open cover $\{U_i\}$.
+\end{corollary}
+
+\begin{proof}
+    By Proposition \ref{prop.maniparacompact}, $M$ has the shrinking property. That is, we have a refinement $\{V_i\}$ such that $\overline{V_i}\subset U_i$ for all $i$. Hence there exists functions $\{f_i\}$ such that each $f_i$ has support in $U_i$ and does not vanish anywhere in $V_i$. Since $f:=\sum f_i$ is non-vanishing, $\{f_i/f\}_i$ is a partition of unity subordinate to $\{U\}$.
+\end{proof}
+
+This property is extremely useful and builds our intuition towards geometry. This is partly exhibited in the following lemma.
+
+\begin{lemma}\label{lem.PoU.extension}
+    Any section of $\mathcal{A}$ over a closed subset $K$ can be extended to a global differentiable function on $M$.
+
+    By Theorem \ref{thm.closedsect}, this can be equivalently stated as follows: Given a differentiable function $f$ in some open neighborhood $U$ of $K$, there is a global function $\tilde f$ which coincides with $f$ in an open neighborhood of $K$.
+\end{lemma}
+
+\begin{proof}
+    By Proposition \ref{prop.maniparacompact}, there is another open neighborhood $V$ of $K$ satisfying $\overline{V}\subset U$. Using partition of unity on the cover $\{U,M\setminus\overline{V}\}$, we obtain a function $\varphi$ which is $1$ on $V$ and whose support is in $U$. Then the function
+    $$\tilde f=\begin{cases}
+        f\varphi, & \text{on }U \\
+        0, & \text{on }M\setminus(\supp\varphi)
+    \end{cases}$$
+    is well-defined and differentiable. It is defined on $M$, as required.
+\end{proof}
+
+\begin{proposition}
+    Let $\varphi:M\to N$ be a continuous map between manifolds. If for every $f\in\mathcal{A}(N)$, the pull-back $f\circ\varphi\in\mathcal{A}(M)$, then $\varphi$ is differentiable.
+\end{proposition}
+
+\begin{proof}
+    Given $U$ open in $N$ and $g\in\mathcal{A}_N(U)$, we apply Lemma \ref{lem.PoU.extension} to $\{x,g\}$, where $x\in U$ is any point, to get a corresponding global function $\tilde g$. The pull-back $\tilde g\circ\varphi$ coincides with $g\circ\varphi$ in a neighborhood of $\varphi^{-1}(x)$.
+\end{proof}
+

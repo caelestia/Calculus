@@ -1,9 +1,10 @@
 % to be included
 \section{Legacy of Analysis}
 
-In this section we discuss general calculus on Euclidean spaces, including parts applied in advanced analysis or geometry, and parts only applied in various \emph{nitian} exams.
+In this section we discuss general calculus on Euclidean spaces, including those actually applied in advanced analysis or geometry, and those only applied in various \emph{nitian} exams.
 
-    A function $f:\Omega\to E$, where $E$ is a normed linear space and $\Omega$ an open subset of one, is said to be \emph{differentiable} at $x\in\Omega$, if there exists
+\begin{definition}
+    Let $E$ be a normed linear space and $\Omega$ an open subset of another such space. A function $f:\Omega\to E$ is said to be \emph{differentiable} at $x\in\Omega$, if there exists
     \begin{itemize}
         \item a continuous $\phi$ defined on a  neighbourhood $U$ of $0$, such that
         $$\lim_{s\to 0}\phi(s)=0;$$
@@ -15,7 +16,113 @@ In this section we discuss general calculus on Euclidean spaces, including parts
 
 Take bases $\left\langle x_i\right\rangle_{i\in I}$ and $\left\langle y_j\right\rangle_{j\in J}$ of finite dimensional normed vector spaces $E$ and $E'$.
 The derivative of a function $f:\Omega\subset E\to E'$ at $x\in E$ corresponds to the \emph{Jacobian Matrix}
-$$\nabla f=\left(\frac{\partial f_j}{\partial x_i}\right)_{I\times J}$$
+$$\nabla f=\left(\frac{\partial f_j}{\partial x_i}\right)_{J\times I}$$
 
 We will prove the inverse and implicit function theorems for $\R^n$, though they hold for general Banach spaces.
 
+\begin{theorem}[Inverse Function Theorem]\label{thm.invfunc}
+    Suppose $U$ is an open set in $\R^n$ and $f:U\to\R^n$ is a function taking $0$ to $0$ of class $C^k$, $k\geq 1$. 
+    
+    If $\nabla f$ is invertible at $0$, then there exists open $0\in V\subset U$ such that $f(V)$ is open in $\R^n$ and $f|_V$ is a diffeomorphism of class $C^k$.   
+\end{theorem}
+
+\begin{proof}
+    First, we establish local injectivity of $f$ around $0$. Define $g(x):=f(x)-(\nabla f)_0(x)$. By definition, $\forall\varepsilon>0$, there is a small neighborhood $W$ of $0$ such that $|g(x)-g(y)|\leq\varepsilon|x-y|$ for $x,y\in W$.
+
+    On the other hand, we have
+    $$|(\nabla f)_0(x-y)|\geq\frac{1}{\left\|(\nabla f)_0^{-1}\right\|}|x-y|$$
+    in some small neighborhood. Call this constant $c$ and take $\varepsilon<c$. $f$ is thus injective in some neighborhood, because
+    \begin{align*}
+        |f(x)-f(y)| &\geq |(\nabla f)_0(x-y)|-|g(x)-g(y)| \\
+        &\geq (c-\varepsilon)|x-y|.
+    \end{align*}
+    
+    Next, we wish to show that $f(V)$ is open for $V$ sufficiently small. This will make $f|_V$ a homeomorphism. Indeed, we can choose $V$ that $\det(\nabla f)$ is nowhere vanishing on $V$, so it suffices to show that the image $f(V)$ is a neighborhood of $0$.
+
+    To see this, take a neighborhood $V$ on which $f$ is injective and $\det(\nabla f)$ does not vanish. There is an open ball $D$ centered at $0$ satisfying $\overline{D}\subset V$. Consider the compact boundary $S:=\partial D$ and $\rho:=\frac{1}{2}d(0,f(S))$. We claim that $B(0,\rho)\subset f(V)$.
+
+    Fix $z\in B(0,\rho)$. Notice that $\forall m\in S$,
+    $$2\rho\leq|f(m)|\leq|z|+|z-f(m)|<\rho+|z-f(m)|,$$
+    hence $|z-f(m)|>\rho>|z|$. 
+
+    Now we can consider the function $F:V\to\R$ which we wish to minimize
+    $$F(x):=|z-f(x)|^2=\sum_{j=1}^n(z_j-f_j(x))^2.$$
+    It must take its minimum on the compact set $\overline{D}$. The above argument shows $F$ always takes larger values on the boundary $S$ than $F(0)$, hence the minimum is taken at some $x\in D$. 
+    
+    This implies
+    $$0=\frac{\partial F}{\partial x_i}(x)=-2\sum_{j=1}^n(z_j-f_j(x))\frac{\partial f_j}{\partial x_i}(x)$$
+    for all $i$. But $(\nabla f)_x$ is invertible, so as desired, we see that $z=f(x)$, and $B(0,\rho)\subset f(V)$.
+
+    Finally, we check that the inverse $f^{-1}$ is of class $C^k$. We've already shown that $\forall\varepsilon>0$, there is some small neighborhood $W$ of 0 such that
+    $$|g(x)-g(y)|\leq\varepsilon|x-y|$$
+    and
+    $$|f(x)-f(y)|\geq\frac{c}{2}|x-y|$$
+    holds for all $x,y\in W$, and that $f(W)$ is a neighborhood of $0$.
+
+    We immediately see that $(\nabla f)_0^{-1}$ is the derivative of $f^{-1}$ at $0\in f(W)$, as
+    \begin{align*}
+        c|x-y-(\nabla f)_0^{-1}(f(x)-f(y))| &\leq |g(x)-g(y)| \\
+        &\leq\varepsilon|x-y| \\
+        &\leq\frac{2\varepsilon}{c}|f(x)-f(y)|.
+    \end{align*}
+
+    Therefore, the derivative of the function $f^{-1}$ at any $z=f(x)\in f(W)$ is 
+    \begin{equation}\label{eq.invfunc}
+        (\nabla f^{-1})(z)=(\nabla f)^{-1}\circ f^{-1}(z)
+    \end{equation}
+
+    Indeed, $(\nabla f)^{-1}=(\det(\nabla f))^{-1}(\nabla f)^\vee$ is of class $C^{k-1}$, as all partial derivatives $(\partial f_j/\partial x_i)$ are. We know that $f^{-1}\in C^0$. Suppose it is of class $C^h$, $h\leq k-1$. The explicit form in (\ref{eq.invfunc}) shows $\nabla f^{-1}\in C^h$ as well, so $f^{-1}\in C^{h+1}$. From this process we easily see that $f^{-1}$ is indeed $C^k$.
+\end{proof}
+
+\begin{example}
+    If the derivative of $f$ is not continuous, the inverse function might not exist. The counterexample is 
+    $$f(x)=\frac{1}{2}x+x^2\sin(\frac{1}{x}).$$
+
+    We can check that $f'(0)=\frac{1}{2}\neq 0$. However, $f$ is not injective in any neighborhood of $0$. In fact, there are infinitely many points such that $f'(x)=0$ and $f''(x)\neq 0$ in any neighborhood of $0$.
+\end{example}
+
+\begin{theorem}[Implicit Function Theorem]\label{thm.impfunc}
+    Suppose $U$ is an open set in $\R^n\times\R^m$ and $f:U\to\R^m$ is a function taking $0$ to $0$ of class $C^k$, $k\geq 1$.
+
+    If $\nabla f(0,y)$ is invertible at $0$, then there exists open $0\in V\subset\R^n$ and a unique map $\varphi:V\to\R^m$ of class $C^k$, such that $V\times\varphi(V)$ is contained in $U$ and $f(x,\varphi(x))=0$ for all $x\in V$. 
+\end{theorem}
+
+\begin{proof}
+    Consider the function $F:U\to\R^n\times\R^m$ given by $F(x,y)=(x,f(x,y))$. It is of course of class $C^k$, and we have 
+    $$\det(\nabla F)|_0=\det(\nabla f(0,y))|_0\neq 0.$$
+
+    By the inverse function theorem, there is an open neighborhood $W\subset U$ of $0$ such that $F(W)$ is open and $F^{-1}$ in a function of class $C^k$.
+
+    Now take $V:=\{x\in\R^n:(x,0)\in F(W)\}$. We immediately see that
+    $$F(x,y)=(x,0) \Longleftrightarrow (x,y)=F^{-1}(x,0),$$
+    which completes the proof.
+\end{proof}
+
+Sometimes we need the following generalization of the implicit function theorem.
+
+\begin{theorem}[Constant Rank Theorem]
+    Suppose $U$ is an open set in $\R^{r+m}$ and $f:U\to\R^{r+n}$ is a function taking $0$ to $0$ of class $C^k$, $k\geq 1$.
+
+    If $f$ has constant rank $r$ in $U$, then there exists open $0\in W\subset\R^{r+m}$ and $0\in V\subset\R^{r+n}$, and diffeomorphisms $\alpha, \beta$ of class $C^k$, such that
+    $$(\beta\circ f\circ\alpha)(x,y)=(x,0),\quad x\in\R^r, y\in\R^m.$$
+\end{theorem}
+
+\begin{proof}
+    First, notice that there is an invertible $r\times r$ submatrix of $(\nabla f)_0$. We may assume it is the upper left corner. That is, 
+    $$f(x,y)=(f_r(x,y),\tilde f(x,y)),$$
+    where $(\nabla f_r(x,0))_0$ is invertible.
+
+    Again define $F(x,y):=(f_r(x,y),y)\in\R^{r+m}$, and $(\nabla F)_0$ is invertible. By the inverse function theorem, there is an open neighborhood $W\subset U$ of $0$ such that $F(W)$ is open and $F^{-1}=(F_r^{-1},\operatorname{id}_{\R^m})$ in a function of class $C^k$. We will assume that $W$ is an open cube.
+
+    Now 
+    \begin{align}\begin{split}\label{eq.constrk}
+        (f\circ F^{-1})(x,y) &=f(F_r^{-1}(x,y),y) \\
+        &=(x,\tilde f(F_r^{-1}(x,y),y)).
+    \end{split}\end{align}
+
+    But $\nabla(f\circ F^{-1})=(\nabla f)\circ(\nabla F^{-1})$ has rank $r$, from (\ref{eq.constrk}) we see that $\tilde f(F_r^{-1}(x,y),y)$ is actually independent of $y$, and thus is equal to $\tilde F(x):=\tilde f(F_r^{-1}(x,0),0)$ since $W$ is a cube. (\ref{eq.constrk}) now becomes
+    $$(f\circ F^{-1})(x,y)=(x,\tilde F(x)).$$
+
+    Finally, take $V=\{(x,z)\in\R^{r+n}:(x,0)\in W\}$. Obviously $\beta:(x,y)\mapsto (x,y-\tilde F(x))$ is a diffeomorphism of class $C^k$ in $V$, and
+    $$(\beta\circ f\circ F^{-1})(x,y)=(x,0).$$
+\end{proof}
