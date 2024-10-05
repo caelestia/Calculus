@@ -105,11 +105,60 @@ There is an interesting generalization of the projective space $P(V)$ which also
     which is a simple consequence of the explicit basis of $\bigwedge V$ (indexed by the multi-indices $\lambda=(1\leq\lambda_1<\cdots<\lambda_k\leq n)$).
 \end{proof}
 
-It can be shown that under this map, $\mathbf{G}(k,V)$ is a closed submanifold of $P(\bigwedge^kV)$. However we leave the proof of this for later at the appropriate juncture.
+It can be shown that under this map, $\mathbf{G}(k,V)$ is a closed submanifold of $P(\bigwedge^kV)$. However we leave the proof of this for later at the appropriate juncture due to the subtlety.
 
-We have a few more remarks on the algebra regarding the Grassmannian before we move on. %TODO contraction, duality, prepare for compute of differential forms
+We present a few more remarks on the algebra regarding the Grassmannian before we move on. %TODO contraction, duality, prepare for compute of differential forms
 
-Closed submanifolds are the nicest 
+Closed submanifolds are the nicest family of submanifolds we can possibly have. However, the condition is subtle and often too restrictive. Slightly more generally, we have
+
+\begin{definition}
+    A \emph{locally closed submanifold} is a closed submanifold of an open submanifold. Sometimes it is also called a \emph{embedded submanifold}.
+\end{definition}
+
+Clearly, the intersection of any closed submanifold with an open set is a locally closed submanifold, but the converse is not true. To understand this definition we shall first explain the terms.
+
+\begin{proposition}\label{prop.locclose}
+    A subset $W$ of a topological space $X$ is said to be \emph{locally closed} if any of the following equivalent conditions hold.
+    \begin{enumerate}
+        \item $W=U\cap C$, where $U$ is open and $C$ is closed,
+        \item $W=U\cap\overline{W}$, where $U$ is open,
+        \item $W$ is open in $\overline{W}$,
+        \item $\overline{W}\setminus W$ is closed,
+        \item $\forall x\in W$, $\exists U\ni x$ s.t. $U\cap W$ is closed in $U$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    $5\Longleftarrow 1\Longleftrightarrow 2\Longleftrightarrow 3\Longleftrightarrow 4$ is trivial. 
+
+    Assume $5$. If we have $U\cap W=U\cap\overline{W}$, we can take the union over all $x$ and obtain $2$. So we compute
+    \begin{align*}
+        U\cap W &= U\cap\overline{U\cap W} \\
+        &= \left\{x\in U:\forall V\in\mathcal{N}_x, V\cap U\cap W\neq\varnothing\right\} \\
+        &= U\cap\overline{W}
+    \end{align*}
+    because $U$ is open.
+\end{proof}
+
+\begin{proposition}
+    A subset $W$ of a manifold $M$ is a locally closed manifold, iff around every point $x\in W$ there is neighborhood $U$ such that $U\cap W$ is a closed submanifold of $U$.
+\end{proposition}
+
+\begin{proof}
+    The "only if" direction is trivial. For the other direction, note that as shown in the proof of Proposition \ref{prop.locclose}, $W$ is closed in the union $O$ of all such $U$'s. The charts making $W$ a closed submanifold of $O$ are those making $U\cap W$ a closed submanifold of $U$.
+\end{proof}
+
+\begin{corollary}
+    Closed submanifolds are precisely locally closed submanifolds that are also closed subsets.
+\end{corollary}
+
+\begin{proof}
+    This is the definition of a closed submanifold.
+\end{proof}
+
+\begin{remark}
+    If $W\subset M$ is a locally closed submanifold and $\dim W=\dim M$, then $W$ is an open submanifold.
+\end{remark}
 
 We now shift our focus to basic properties of the differentiable functions. By the locality of sections, the following is obvious.
 
@@ -194,3 +243,33 @@ This property is extremely useful and builds our intuition towards geometry. Thi
     Given $U$ open in $N$ and $g\in\mathcal{A}_N(U)$, we apply Lemma \ref{lem.PoU.extension} to $\{x,g\}$, where $x\in U$ is any point, to get a corresponding global function $\tilde g$. The pull-back $\tilde g\circ\varphi$ coincides with $g\circ\varphi$ in a neighborhood of $\varphi^{-1}(x)$.
 \end{proof}
 
+All the submanifolds we have tackled so far are locally closed submanifolds. They are essentially just a subset $W$ of $M$ equipped with a smooth structure inherited from $M$:
+$$\mathcal{A}_W=\mathcal{A}_M|N.$$
+
+However, it is clear that some differentiable maps $M\to N$ also has the desired properties of a submanifold. This leads us to the following notion.
+
+\begin{definition}
+    We say a differentiable map $f:M\to N$ is an \emph{immersion}, or $M$ is \emph{immersed} in $N$, if
+    \begin{itemize}
+        \item $f$ is injective, and
+        \item around any point $x\in M$, there is a coordinate chart $U$, such that $f(U)$ is locally closed in $N$.
+    \end{itemize}
+    We may expand the second condition for a bit, 
+    \begin{itemize}
+        \item (or equivalently,) around any point $x\in M$, there is a chart $U$, and a chart $(U',c')$ in $N$ containing $f(U)$, such that $f(U)$ is the common zero of some coordinates of $c'$.
+    \end{itemize}
+\end{definition}
+
+When can we identify an immersed submanifold with the image? The condition is neat.
+
+\begin{proposition}
+    The image of an immersion $f:M\to N$ is a locally closed submanifold of $N$ if and only if $f$ is a topological embedding, i.e., that $f$ is a homeomorphism $M\simeq f(M)$.
+
+    This explains the term "embedded submanifold".
+\end{proposition}
+
+\begin{proof}
+     If $f$ is a homeomeomorphism, then $f(U)$ is open for a chart $U$ and $f(M)$ is locally closed. For the converse, let $f(M)$ be the submanifold of $N$. We claim that
+     $$\dim M=\dim f(M).$$
+    
+\end{proof}
